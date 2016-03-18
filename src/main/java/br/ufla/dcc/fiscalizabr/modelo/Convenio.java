@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQuery(name = Convenio.TODOS, query = "select NEW br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio(c.objeto, c.inicioVigencia, c.fimVigencia, c.proponente.municipio, c.proponente.uf, c.proponente.nomeProponente, c.valor.valorGlobal) from Convenio as c")
+@NamedQuery(name = Convenio.TODOS, query = "select new br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio(c.objeto, c.inicioVigencia, c.fimVigencia, c.proponente.municipio, c.proponente.uf, c.proponente.nomeProponente, c.valor.valorGlobal) from Convenio as c")
 public class Convenio implements Serializable {
 
     public static final String TODOS = "Convenio.TODOS";

@@ -2,7 +2,9 @@ package br.ufla.dcc.fiscalizabr.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ResumoConvenio implements Serializable {
 
@@ -14,6 +16,16 @@ public class ResumoConvenio implements Serializable {
     private String nomeProponente;
     private BigDecimal valorGlobal;
 
+    public ResumoConvenio() {
+       this.objeto = "";
+        this.inicioVigencia = Calendar.getInstance().getTime();
+        this.fimVigencia = Calendar.getInstance().getTime();
+        this.municipio = "";
+        this.uf = UF.AC;
+        this.nomeProponente = "";
+        this.valorGlobal = new BigDecimal(0); 
+    }
+    
     public ResumoConvenio(String objeto, Date inicioVigencia, Date fimVigencia, String municipio, UF uf, String nomeProponente, BigDecimal valorGlobal) {
         this.objeto = objeto;
         this.inicioVigencia = inicioVigencia;
