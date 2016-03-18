@@ -1,19 +1,24 @@
 package br.ufla.dcc.fiscalizabr.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class OrgaoSuperior implements Serializable {
-    private int numeroOrgaoSuperior;
+    
+    @Column(name = "CD_ORGAO_SUPERIOR")
+    private int codigoOrgaoSuperior;
+    
+    @Column(name = "NM_ORGAO_SUPERIOR")
     private String nomeOrgaoSuperior;
 
-    public int getNumeroOrgaoSuperior() {
-        return numeroOrgaoSuperior;
+    public int getCodigoOrgaoSuperior() {
+        return codigoOrgaoSuperior;
     }
 
-    public void setNumeroOrgaoSuperior(int numeroOrgaoSuperior) {
-        this.numeroOrgaoSuperior = numeroOrgaoSuperior;
+    public void setCodigoOrgaoSuperior(int codigoOrgaoSuperior) {
+        this.codigoOrgaoSuperior = codigoOrgaoSuperior;
     }
 
     public String getNomeOrgaoSuperior() {
@@ -23,5 +28,6 @@ public class OrgaoSuperior implements Serializable {
     public void setNomeOrgaoSuperior(String nomeOrgaoSuperior) {
         this.nomeOrgaoSuperior = nomeOrgaoSuperior;
     }
+
     
 }

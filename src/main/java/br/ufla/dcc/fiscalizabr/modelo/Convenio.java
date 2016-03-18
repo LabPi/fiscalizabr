@@ -2,6 +2,7 @@ package br.ufla.dcc.fiscalizabr.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,62 +11,142 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @NamedQuery(name = Convenio.TODOS, query = "select c from Convenio c")
 public class Convenio implements Serializable {
 
     public static final String TODOS = "Convenio.TODOS";
-    @Id
-    @GeneratedValue
+    
+    @Id @GeneratedValue
     private Long id;
+    
+    @Column(name = "ANO_CONVENIO")
     private int anoConvenio;
+    
+    @Column(name = "NR_CONVENIO")
     private int numeroConvenio;
+    
     @Embedded
     private Proposta proposta;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_MODALIDADE")
     private Modalidade modalidade;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_SITUACAO")
     private SituacaoConvenio situacaoConvenio;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_SUBSITUACAO")
     private SubsituacaoConvenio subsituacaoConvenio;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_SITUACAO_PUBLICACAO")
     private SituacaoPublicacaoConvenio situacaoPublicacaoConvenio;
+    
     @Embedded
     private OrgaoSuperior orgaoSuperior;
+    
     @Embedded
     private OrgaoConcedente orgaoConcedente;
+    
     @Embedded
     private Valor valor;
+    
+    @Column(name = "ID_CONVENIO")
     private int identificacaoConvenio; 
+    
+    @Column(name = "NR_PROCESSO_CONVENIO")
     private String numeroProcesso;
+    
+    @Column(name = "NR_INTERNO_CONVENIO")
     private String numeroInterno;
+    
+    @Column(name = "IN_ASSINADO_SN")
     private boolean estaAssinado; 
+    
+    @Column(name = "IN_ADITIVO_SN")
     private boolean possuiAditivo;
+    
+    @Column(name = "IN_PUBLICADO_SN")
     private boolean estaPublicado;
+    
+    @Column(name = "IN_EMPENHADO_SN")
     private boolean estaEmpenhado;
+    
+    @Column(name = "IN_PRORROGA_OFICIO_SN")
     private boolean possuiProrrogaDeOficio;
+    
+    @Column(name = "IN_PERMITE_AJUSTE_CRON_FISICO")
     private boolean permiteAjusteNoCronogramaFisico; 
+    
+    @Column(name = "QT_EMPENHOS")
     private int quantidadeEmpenhos;
+    
+    @Column(name = "QT_ADITIVOS")
     private int quantidadeAditivos;
+    
+    @Column(name = "QT_PRORROGAS")
     private int quantidadeProrrogas;
+    
     @Lob
+    @Column(name = "TX_OBJETO_CONVENIO")
     private String objeto;
+    
     @Lob
+    @Column(name = "TX_JUSTIFICATIVA")
     private String justificativa;
+    
+    @Column(name = "CD_PROGRAMA")
     private String codigoPrograma;
+    
+    @Column(name = "NM_PROGRAMA")
     private String nomePrograma;
+    
+    @Column(name = "CD_ACAO_PPA")
     private String codigoAcao;
-    private String identificacaoPrograma;
+    
+    @Column(name = "ID_PROP_PROGRAMA")
+    private int identificacaoPropostaPrograma;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_INICIO_VIGENCIA")
     private Date inicioVigencia;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_FIM_VIGENCIA")
     private Date fimVigencia;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_ASSINATURA_CONVENIO")
     private Date dataAssinatura;
+    
+    @Column(name = "MES_ASSINATURA_CONVENIO")
     private int mesAssinatura;
+    
+    @Column(name = "ANO_ASSINATURA_CONVENIO")
     private int anoAssinatura;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_PUBLICACAO")
     private Date dataPublicacao;
+    
+    @Column(name = "MES_PUBLICACAO_CONVENIO")
     private int mesPublicacao;
+    
+    @Column(name = "ANO_PUBLICACAO_CONVENIO")
     private int anoPublicacao;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_ULTIMO_EMPENHO")
     private Date ultimoEmpenho;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_ULTIMO_PGTO")
     private Date ultimoPagamento;
 
     public Long getId() {
@@ -292,12 +373,12 @@ public class Convenio implements Serializable {
         this.codigoAcao = codigoAcao;
     }
 
-    public String getIdentificacaoPrograma() {
-        return identificacaoPrograma;
+    public int getIdentificacaoPropostaPrograma() {
+        return identificacaoPropostaPrograma;
     }
 
-    public void setIdentificacaoPrograma(String identificacaoPrograma) {
-        this.identificacaoPrograma = identificacaoPrograma;
+    public void setIdentificacaoPropostaPrograma(int identificacaoPropostaPrograma) {
+        this.identificacaoPropostaPrograma = identificacaoPropostaPrograma;
     }
 
     public Date getInicioVigencia() {
@@ -379,7 +460,7 @@ public class Convenio implements Serializable {
     public void setUltimoPagamento(Date ultimoPagamento) {
         this.ultimoPagamento = ultimoPagamento;
     }
-    
+
     
 
 }

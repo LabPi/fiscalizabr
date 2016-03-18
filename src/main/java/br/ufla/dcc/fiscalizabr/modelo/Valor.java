@@ -2,16 +2,31 @@ package br.ufla.dcc.fiscalizabr.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Valor implements Serializable {
+    
+    @Column(name = "VL_GLOBAL")
     private BigDecimal valorGlobal;
+    
+    @Column(name = "VL_REPASSE")
     private BigDecimal valorRepasseUniao;
+    
+    @Column(name = "VL_CONTRAPARTIDA_TOTAL")
     private BigDecimal valorTotalContrapartida;
+    
+    @Column(name = "VL_CONTRAPARTIDA_FINANC")
     private BigDecimal valorContrapartidaFinanceira;
+    
+    @Column(name = "VL_CONTRAPARTIDA_BENS_SERV")
     private BigDecimal valorContrapartidaFinanceiraBensEServicos;
+    
+    @Column(name = "VL_DESEMBOLSADO")
     private BigDecimal valorDesembolsado;
+    
+    @Column(name = "VL_EMPENHADO")
     private BigDecimal valorEmpenhado;
 
     public BigDecimal getValorGlobal() {
@@ -68,9 +83,5 @@ public class Valor implements Serializable {
 
     public void setValorEmpenhado(BigDecimal valorEmpenhado) {
         this.valorEmpenhado = valorEmpenhado;
-    }
-    
-    
-    
-
+    }    
 }

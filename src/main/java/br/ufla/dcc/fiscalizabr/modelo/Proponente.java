@@ -1,6 +1,7 @@
 package br.ufla.dcc.fiscalizabr.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,22 +10,47 @@ import javax.persistence.Enumerated;
 public class Proponente implements Serializable {
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_ESFERA_ADM_PROPONENTE")
     private EsferaAdministrativa esferaAdministrativa;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_REGIAO_PROPONENTE")
     private Regiao regiao;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "UF_PROPONENTE")
     private UF uf;
+    
     @Enumerated(EnumType.STRING)
+    @Column(name = "TX_QUALIFIC_PROPONENTE")
     private Qualificacao qualificacao;
+    
+    @Column(name = "NM_MUNICIPIO_PROPONENTE")
     private String municipio;
-    private String numeroProponente;
+    
+    @Column(name = "CD_IDENTIF_PROPONENTE")
+    private String identificacaoProponente;
+    
+    @Column(name = "NM_PROPONENTE")
     private String nomeProponente;
+    
+    @Column(name = "TX_ENDERECO_PROPONENTE")
     private String enderecoProponente;
+    
+    @Column(name = "TX_BAIRRO_PROPONENTE")
     private String bairroProponente;
+    
+    @Column(name = "NR_CEP_PROPONENTE")
     private String cepProponente;
-    private String numeroResponsavelProponente;
+    
+    @Column(name = "CD_RESPONS_PROPONENTE")
+    private String codigoResponsavelProponente;
+    
+    @Column(name = "NM_RESPONS_PROPONENTE")
     private String nomeResponsavelProponente;
-    private String cargoResponsavelProponente;
+    
+    @Column(name = "TX_CARGO_RESPONS_PROPONENTE")
+    private String cargoResponsavelProponente;   
 
     public EsferaAdministrativa getEsferaAdministrativa() {
         return esferaAdministrativa;
@@ -66,12 +92,12 @@ public class Proponente implements Serializable {
         this.municipio = municipio;
     }
 
-    public String getNumeroProponente() {
-        return numeroProponente;
+    public String getIdentificacaoProponente() {
+        return identificacaoProponente;
     }
 
-    public void setNumeroProponente(String numeroProponente) {
-        this.numeroProponente = numeroProponente;
+    public void setIdentificacaoProponente(String identificacaoProponente) {
+        this.identificacaoProponente = identificacaoProponente;
     }
 
     public String getNomeProponente() {
@@ -106,12 +132,12 @@ public class Proponente implements Serializable {
         this.cepProponente = cepProponente;
     }
 
-    public String getNumeroResponsavelProponente() {
-        return numeroResponsavelProponente;
+    public String getCodigoResponsavelProponente() {
+        return codigoResponsavelProponente;
     }
 
-    public void setNumeroResponsavelProponente(String numeroResponsavelProponente) {
-        this.numeroResponsavelProponente = numeroResponsavelProponente;
+    public void setCodigoResponsavelProponente(String codigoResponsavelProponente) {
+        this.codigoResponsavelProponente = codigoResponsavelProponente;
     }
 
     public String getNomeResponsavelProponente() {
@@ -128,8 +154,5 @@ public class Proponente implements Serializable {
 
     public void setCargoResponsavelProponente(String cargoResponsavelProponente) {
         this.cargoResponsavelProponente = cargoResponsavelProponente;
-    }
-
-    
-
+    }    
 }
