@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufla.dcc.fiscalizabr.modelo;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Paulo
- */
-public enum Situacao implements Serializable {
+public enum SituacaoConvenio implements Serializable {
 
     AGUARDANDO_PRESTACAO_CONTAS("Aguardando Prestação de Contas"),
     EM_EXECUCAO("Em execução"),
@@ -27,7 +18,7 @@ public enum Situacao implements Serializable {
 
     private final String descricao;
 
-    private Situacao(String desc) {
+    private SituacaoConvenio(String desc) {
         this.descricao = desc;
     }
 

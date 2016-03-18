@@ -1,9 +1,10 @@
 package br.ufla.dcc.fiscalizabr.modelo;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class OrgaoConcedente {
+public class OrgaoConcedente implements Serializable {
 
     private int numeroOrgaoConcedente;
     private String nomeOrgaoConcedente;

@@ -1,17 +1,21 @@
 package br.ufla.dcc.fiscalizabr.modelo;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Embeddable
-public class Proponente {
+public class Proponente implements Serializable {
+
     @Enumerated(EnumType.STRING)
     private EsferaAdministrativa esferaAdministrativa;
     @Enumerated(EnumType.STRING)
     private Regiao regiao;
     @Enumerated(EnumType.STRING)
     private UF uf;
+    @Enumerated(EnumType.STRING)
+    private Qualificacao qualificacao;
     private String municipio;
     private String numeroProponente;
     private String nomeProponente;
@@ -44,6 +48,14 @@ public class Proponente {
 
     public void setUf(UF uf) {
         this.uf = uf;
+    }
+
+    public Qualificacao getQualificacao() {
+        return qualificacao;
+    }
+
+    public void setQualificacao(Qualificacao qualificacao) {
+        this.qualificacao = qualificacao;
     }
 
     public String getMunicipio() {
@@ -116,6 +128,8 @@ public class Proponente {
 
     public void setCargoResponsavelProponente(String cargoResponsavelProponente) {
         this.cargoResponsavelProponente = cargoResponsavelProponente;
-    }  
+    }
+
     
+
 }

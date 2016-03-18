@@ -9,9 +9,8 @@ public class Proposta implements Serializable {
     private int anoProposta;
     private int numeroProposta;
     private Date dataInclusaoProposta;
-    
-    
-    
+    private int identificacaoProposta;    
+
     public int getAnoProposta() {
         return anoProposta;
     }
@@ -27,4 +26,22 @@ public class Proposta implements Serializable {
     public void setNumeroProposta(int numeroProposta) {
         this.numeroProposta = numeroProposta;
     }
+
+    public Date getDataInclusaoProposta() {
+        return dataInclusaoProposta;
+    }
+
+    public void setDataInclusaoProposta(Date dataInclusaoProposta) {
+        this.dataInclusaoProposta = dataInclusaoProposta;
+    }
+
+    public int getIdentificacaoProposta() {
+        return identificacaoProposta;
+    }
+
+    public void setIdentificacaoProposta(int identificacaoProposta) {
+        this.identificacaoProposta = identificacaoProposta;
+    }
+    
+    
 }
