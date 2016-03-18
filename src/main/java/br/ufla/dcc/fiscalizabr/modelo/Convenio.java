@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQuery(name = Convenio.TODOS, query = "select c from Convenio c")
+@NamedQuery(name = Convenio.TODOS, query = "select NEW br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio(c.objeto, c.inicioVigencia, c.fimVigencia, c.proponente.municipio, c.proponente.uf, c.proponente.nomeProponente, c.valor.valorGlobal) from Convenio as c")
 public class Convenio implements Serializable {
 
     public static final String TODOS = "Convenio.TODOS";
@@ -31,6 +31,9 @@ public class Convenio implements Serializable {
     
     @Embedded
     private Proposta proposta;
+    
+    @Embedded
+    private Proponente proponente;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "TX_MODALIDADE")
@@ -181,6 +184,14 @@ public class Convenio implements Serializable {
         this.proposta = proposta;
     }
 
+    public Proponente getProponente() {
+        return proponente;
+    }
+
+    public void setProponente(Proponente proponente) {
+        this.proponente = proponente;
+    }
+    
     public Modalidade getModalidade() {
         return modalidade;
     }
