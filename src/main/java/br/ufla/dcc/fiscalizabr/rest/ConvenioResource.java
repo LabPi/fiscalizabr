@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -27,7 +28,7 @@ public class ConvenioResource {
     @GET
     @Path("/{cId}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-    public Convenio obterConvenio(Long cId) {
+    public Convenio obterConvenio(@PathParam("cId") Long cId) {
         EntityManager em = JPAUtil.getEMF().createEntityManager();
         Convenio conv = em.find(Convenio.class, cId);
         em.close();
