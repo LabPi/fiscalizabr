@@ -23,4 +23,14 @@ public class ConvenioResource {
         em.close();
         return convenios;
     }
+
+    @GET
+    @Path("/{cId}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+    public Convenio obterConvenio(Long cId) {
+        EntityManager em = JPAUtil.getEMF().createEntityManager();
+        Convenio conv = em.find(Convenio.class, cId);
+        em.close();
+        return conv;
+    }
 }
