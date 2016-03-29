@@ -12,18 +12,15 @@ import javax.persistence.TypedQuery;
 
 public class JPAConvenioDAO implements ConvenioDAO, Serializable {
 
-    private static final String CONVENIO_TODOS = "select new br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio(c.objeto, c.inicioVigencia, c.fimVigencia, c.proponente.municipio, c.proponente.uf, c.proponente.nomeProponente, c.valor.valorGlobal) from Convenio as c where 1=1";
-
     @Override
-    public List<Convenio> todos(HashMap mapaFiltro) {
-        List<Convenio> convenios = new ArrayList<Convenio>();
+    public List<ResumoConvenio> todos(HashMap mapaFiltro) {
+        List<ResumoConvenio> convenios = new ArrayList<ResumoConvenio>();
         EntityManager em = JPAUtil.getEMF().createEntityManager();
         try {
             ResumoConvenioCriteria rcc
                     = new ResumoConvenioCriteria(mapaFiltro).
                     comLocalidade().comFaixaValores();
-            TypedQuery<Convenio> tp = em.createQuery(rcc.getCriteriaQuery());
-          
+            TypedQuery<ResumoConvenio> tp = em.createQuery(rcc.getCriteriaQuery());          
             convenios = tp.getResultList();
         } catch (Exception ex) {
             ex.printStackTrace();

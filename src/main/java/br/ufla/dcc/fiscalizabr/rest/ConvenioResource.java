@@ -3,6 +3,7 @@ package br.ufla.dcc.fiscalizabr.rest;
 import br.ufla.dcc.fiscalizabr.dao.ConvenioDAO;
 import br.ufla.dcc.fiscalizabr.dao.jpa.JPAConvenioDAO;
 import br.ufla.dcc.fiscalizabr.modelo.Convenio;
+import br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio;
 import java.util.HashMap;
 import java.util.List;
 import javax.ws.rs.DefaultValue;
@@ -16,21 +17,27 @@ import javax.ws.rs.core.MediaType;
 @Path("convenios")
 public class ConvenioResource {
 
+    public static final String MUNICIPIO_QUERY_PARAM_NAME = "mun";
+    public static final String UF_QUERY_PARAM_NAME = "uf";
+    public static final String MINVALOR_QUERY_PARAM_NAME = "minV";
+    public static final String MAXVALOR_QUERY_PARAM_NAME = "maxV";
+    public static final String STR_DEFAULT_QUERY_PARAM_VALOR = "";
+    
     private static final ConvenioDAO cDAO = new JPAConvenioDAO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-    public List<Convenio> obterConvenios(
-            @DefaultValue("") @QueryParam("mun") String municipio,
-            @DefaultValue("") @QueryParam("uf") String uf,
-            @DefaultValue("") @QueryParam("minValor") String minValor,
-            @DefaultValue("") @QueryParam("maxValor") String maxValor
+    public List<ResumoConvenio> obterConvenios(
+            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MUNICIPIO_QUERY_PARAM_NAME) String municipio,
+            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(UF_QUERY_PARAM_NAME) String uf,
+            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MINVALOR_QUERY_PARAM_NAME) String minValor,
+            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MAXVALOR_QUERY_PARAM_NAME) String maxValor
     ) {
         HashMap<String, String> mapaFiltro = new HashMap<String, String>();
-        mapaFiltro.put("mun", municipio);
-        mapaFiltro.put("uf", uf);
-        mapaFiltro.put("minValor", minValor);
-        mapaFiltro.put("maxValor", maxValor);
+        mapaFiltro.put(MUNICIPIO_QUERY_PARAM_NAME, municipio);
+        mapaFiltro.put(UF_QUERY_PARAM_NAME, uf);
+        mapaFiltro.put(MINVALOR_QUERY_PARAM_NAME, minValor);
+        mapaFiltro.put(MAXVALOR_QUERY_PARAM_NAME, maxValor);
         return cDAO.todos(mapaFiltro);
     }
 
