@@ -19,7 +19,8 @@ public class JPAConvenioDAO implements ConvenioDAO, Serializable {
         try {
             ResumoConvenioCriteria rcc
                     = new ResumoConvenioCriteria(mapaFiltro).
-                    comLocalidade().comFaixaValores();
+                    comLocalidade().comFaixaValores().
+                    comIntervaloData().comSituacao();
             TypedQuery<ResumoConvenio> tp = em.createQuery(rcc.getCriteriaQuery());          
             convenios = tp.getResultList();
         } catch (Exception ex) {

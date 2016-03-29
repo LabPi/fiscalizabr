@@ -3,10 +3,15 @@ package br.ufla.dcc.fiscalizabr.dao.jpa;
 import br.ufla.dcc.fiscalizabr.modelo.Convenio;
 import br.ufla.dcc.fiscalizabr.modelo.Proponente;
 import br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio;
+import br.ufla.dcc.fiscalizabr.modelo.SituacaoConvenio;
 import br.ufla.dcc.fiscalizabr.modelo.UF;
 import br.ufla.dcc.fiscalizabr.modelo.Valor;
 import br.ufla.dcc.fiscalizabr.rest.ConvenioResource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,10 +31,10 @@ public class ResumoConvenioCriteria {
         mapaFiltro = mf;
         criteriaQuery = cb.createQuery(ResumoConvenio.class);
         root = criteriaQuery.from(Convenio.class);
-        criteriaQuery.select(cb.construct(ResumoConvenio.class, 
+        criteriaQuery.select(cb.construct(ResumoConvenio.class,
                 root.get("objeto"), root.get("inicioVigencia"),
                 root.get("fimVigencia"), root.get("proponente").get("municipio"),
-                root.get("proponente").get("uf"), 
+                root.get("proponente").get("uf"),
                 root.get("proponente").get("nomeProponente"),
                 root.get("valor").get("valorGlobal")));
     }
@@ -47,14 +52,42 @@ public class ResumoConvenioCriteria {
         return this;
     }
 
+    public ResumoConvenioCriteria comIntervaloData() {
+        String inicioPeriodoS = mapaFiltro.get(ConvenioResource.INIPERIODO_QUERY_PARAM_NAME);
+        String fimPeriodoS = mapaFiltro.get(ConvenioResource.FIMPERIODO_QUERY_PARAM_NAME);
+        if (!inicioPeriodoS.isEmpty() && !fimPeriodoS.isEmpty()) {
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                Date inicioPeriodoD = df.parse(inicioPeriodoS);
+                Date fimPeriodoD = df.parse(fimPeriodoS);
+
+                Path<Date> pathDataAssinatura = root.get("dataAssinatura");
+                criteriaQuery.where(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return this;
+            }
+        }
+        return this;
+    }
+
+    public ResumoConvenioCriteria comSituacao() {
+        String situacao = mapaFiltro.get(ConvenioResource.SITUACAO_QUERY_PARAM_NAME);
+        if (!situacao.isEmpty()) {
+            Path<SituacaoConvenio> pathSituacao = root.get("situacaoConvenio");
+            criteriaQuery.where(cb.equal(pathSituacao, SituacaoConvenio.valueOf(situacao)));
+        }
+        return this;
+    }
+
     public ResumoConvenioCriteria comLocalidade() {
         String municipio = mapaFiltro.get(ConvenioResource.MUNICIPIO_QUERY_PARAM_NAME);
         String uf = mapaFiltro.get(ConvenioResource.UF_QUERY_PARAM_NAME);
         if (!municipio.isEmpty() && !uf.isEmpty()) {
             Path<Proponente> pathProp = root.get("proponente");
             Path<String> pathMun = pathProp.get("municipio");
-            Path<String> pathUf = pathProp.get("uf");
-            criteriaQuery.where(cb.equal(pathMun, municipio), 
+            Path<UF> pathUf = pathProp.get("uf");
+            criteriaQuery.where(cb.equal(pathMun, municipio),
                     cb.equal(pathUf, UF.valueOf(uf)));
         }
         return this;
