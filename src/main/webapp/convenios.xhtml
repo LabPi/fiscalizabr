@@ -8,5 +8,7 @@
     </h:head>
     <h:body>
         <h1>Bem vindo à Fiscaliza.br!</h1>
+        <h:messages/>
+        <h:outputText value="#{cBean.convenio.objeto}" rendered="#{cBean.carregouConvenio}"/>
     </h:body>
 </html>

@@ -4,6 +4,7 @@ import br.ufla.dcc.fiscalizabr.dao.ConvenioDAO;
 import br.ufla.dcc.fiscalizabr.dao.jpa.JPAConvenioDAO;
 import br.ufla.dcc.fiscalizabr.modelo.Convenio;
 import br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.ws.rs.DefaultValue;
@@ -26,14 +27,16 @@ public class ConvenioResource {
     public static final String FIMPERIODO_QUERY_PARAM_NAME = "fimPer";
     public static final String SITUACAO_QUERY_PARAM_NAME = "sit";
     public static final String STR_DEFAULT_QUERY_PARAM_VALOR = "";
-
+    public static final String MUNICIPIO_DEFAULT_QUERY_PARAM_VALOR = "Brasília";
+    public static final String UF_DEFAULT_QUERY_PARAM_VALOR = "DF";
+    
     private static final ConvenioDAO cDAO = new JPAConvenioDAO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
     public List<ResumoConvenio> obterConvenios(
-            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MUNICIPIO_QUERY_PARAM_NAME) String municipio,
-            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(UF_QUERY_PARAM_NAME) String uf,
+            @DefaultValue(MUNICIPIO_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MUNICIPIO_QUERY_PARAM_NAME) String municipio,
+            @DefaultValue(UF_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(UF_QUERY_PARAM_NAME) String uf,
             @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MINVALOR_QUERY_PARAM_NAME) String minValor,
             @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MAXVALOR_QUERY_PARAM_NAME) String maxValor,
             @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(INIPERIODO_QUERY_PARAM_NAME) String inicioPeriodo,

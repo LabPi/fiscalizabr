@@ -9,6 +9,7 @@ import br.ufla.dcc.fiscalizabr.modelo.Valor;
 import br.ufla.dcc.fiscalizabr.rest.ConvenioResource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -55,19 +56,22 @@ public class ResumoConvenioCriteria {
     public ResumoConvenioCriteria comIntervaloData() {
         String inicioPeriodoS = mapaFiltro.get(ConvenioResource.INIPERIODO_QUERY_PARAM_NAME);
         String fimPeriodoS = mapaFiltro.get(ConvenioResource.FIMPERIODO_QUERY_PARAM_NAME);
-        if (!inicioPeriodoS.isEmpty() && !fimPeriodoS.isEmpty()) {
-            try {
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                Date inicioPeriodoD = df.parse(inicioPeriodoS);
-                Date fimPeriodoD = df.parse(fimPeriodoS);
-
-                Path<Date> pathDataAssinatura = root.get("dataAssinatura");
-                criteriaQuery.where(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                return this;
-            }
+        if (inicioPeriodoS.isEmpty() || fimPeriodoS.isEmpty()) {
+            inicioPeriodoS = "01/01/" + Calendar.getInstance().get(Calendar.YEAR);
+            fimPeriodoS = "31/12/" + Calendar.getInstance().get(Calendar.YEAR);
         }
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            Date inicioPeriodoD = df.parse(inicioPeriodoS);
+            Date fimPeriodoD = df.parse(fimPeriodoS);
+
+            Path<Date> pathDataAssinatura = root.get("dataAssinatura");
+            criteriaQuery.where(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return this;
+        }
+
         return this;
     }
 
