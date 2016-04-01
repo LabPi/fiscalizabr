@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class ResumoConvenio implements Serializable {
 
+    private int numeroConvenio;
     private String objeto;
     private Date inicioVigencia;
     private Date fimVigencia;
@@ -14,9 +15,12 @@ public class ResumoConvenio implements Serializable {
     private UF uf;
     private String nomeProponente;
     private BigDecimal valorGlobal;
-
+    private SituacaoConvenio situacaoConvenio;
+    
     public ResumoConvenio() {
-       this.objeto = "";
+        this.situacaoConvenio = SituacaoConvenio.EM_EXECUCAO;
+        this.numeroConvenio = 0;
+        this.objeto = "";
         this.inicioVigencia = Calendar.getInstance().getTime();
         this.fimVigencia = Calendar.getInstance().getTime();
         this.municipio = "";
@@ -25,7 +29,9 @@ public class ResumoConvenio implements Serializable {
         this.valorGlobal = new BigDecimal(0); 
     }
     
-    public ResumoConvenio(String objeto, Date inicioVigencia, Date fimVigencia, String municipio, UF uf, String nomeProponente, BigDecimal valorGlobal) {
+    public ResumoConvenio(int numeroConvenio, SituacaoConvenio situacaoConvenio, String objeto, Date inicioVigencia, Date fimVigencia, String municipio, UF uf, String nomeProponente, BigDecimal valorGlobal) {
+        this.situacaoConvenio = situacaoConvenio;
+        this.numeroConvenio = numeroConvenio;
         this.objeto = objeto;
         this.inicioVigencia = inicioVigencia;
         this.fimVigencia = fimVigencia;
@@ -35,6 +41,22 @@ public class ResumoConvenio implements Serializable {
         this.valorGlobal = valorGlobal;
     }
 
+    public int getNumeroConvenio() {
+        return numeroConvenio;
+    }
+
+    public void setNumeroConvenio(int numeroConvenio) {
+        this.numeroConvenio = numeroConvenio;
+    }
+
+    public SituacaoConvenio getSituacaoConvenio() {
+        return situacaoConvenio;
+    }
+
+    public void setSituacaoConvenio(SituacaoConvenio situacaoConvenio) {
+        this.situacaoConvenio = situacaoConvenio;
+    }
+    
     public String getObjeto() {
         return objeto;
     }

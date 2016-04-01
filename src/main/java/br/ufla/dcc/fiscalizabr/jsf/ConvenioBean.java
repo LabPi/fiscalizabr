@@ -15,16 +15,16 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class ConvenioBean {
 
-    @ManagedProperty(value = "#{param.cId}")
-    private Long cId;
+    @ManagedProperty(value = "#{param.nConv}")
+    private Integer nConv;
     private Convenio convenio;
     private ConvenioDAO cDAO = new JPAConvenioDAO();
 
     @PostConstruct
     public void init() {
         boolean isOk = false;
-        if (cId != null) {
-            convenio = cDAO.porId(cId);
+        if (nConv != null) {
+            convenio = cDAO.porNumero(nConv);
             if (convenio != null) {
                 isOk = true;
             }
@@ -45,8 +45,8 @@ public class ConvenioBean {
         context.addMessage(componente, fm);
     }
 
-    public void setcId(Long cId) {
-        this.cId = cId;
+    public void setnConv(Integer nConv) {
+        this.nConv = nConv;
     }
 
     public boolean isCarregouConvenio() {

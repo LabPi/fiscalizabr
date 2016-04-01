@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ConvenioDAO {
     public List<ResumoConvenio> todos(HashMap<String, String> mapaFiltro);
-    public Convenio porId(Long cId);    
+    public Convenio porNumero(int nConv);    
 }

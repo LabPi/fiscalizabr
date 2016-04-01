@@ -27,7 +27,7 @@ public class ConvenioResource {
     public static final String FIMPERIODO_QUERY_PARAM_NAME = "fimPer";
     public static final String SITUACAO_QUERY_PARAM_NAME = "sit";
     public static final String STR_DEFAULT_QUERY_PARAM_VALOR = "";
-    public static final String MUNICIPIO_DEFAULT_QUERY_PARAM_VALOR = "Brasília";
+    public static final String MUNICIPIO_DEFAULT_QUERY_PARAM_VALOR = "BRASILIA";
     public static final String UF_DEFAULT_QUERY_PARAM_VALOR = "DF";
     
     private static final ConvenioDAO cDAO = new JPAConvenioDAO();
@@ -55,9 +55,9 @@ public class ConvenioResource {
     }
 
     @GET
-    @Path("/{cId}")
+    @Path("/{nConv}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-    public Convenio obterConvenio(@PathParam("cId") Long cId) {
-        return cDAO.porId(cId);
+    public Convenio obterConvenio(@PathParam("nConv") int nConv) {
+        return cDAO.porNumero(nConv);
     }
 }

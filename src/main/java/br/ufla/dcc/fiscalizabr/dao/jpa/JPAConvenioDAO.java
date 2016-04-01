@@ -32,14 +32,18 @@ public class JPAConvenioDAO implements ConvenioDAO, Serializable {
     }
 
     @Override
-    public Convenio porId(Long cId) {
+    public Convenio porNumero(int nConv) {
         EntityManager em = JPAUtil.getEMF().createEntityManager();
-        Convenio convenio = null;
+        List<Convenio> convenios = new ArrayList<Convenio>();
         try {
-            convenio = em.find(Convenio.class, cId);
+            TypedQuery<Convenio> tq = em.createNamedQuery(Convenio.POR_NUMERO, Convenio.class);
+            tq.setParameter("numeroConvenio", nConv);
+            convenios = tq.getResultList();
+            if (convenios.isEmpty())
+                return null;
+            return convenios.get(0);
         } finally {
-            em.close();
-            return convenio;
+            em.close();            
         }
     }
 

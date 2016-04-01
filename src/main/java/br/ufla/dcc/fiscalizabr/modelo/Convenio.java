@@ -10,16 +10,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQuery(name = Convenio.TODOS, query = "select new br.ufla.dcc.fiscalizabr.modelo.ResumoConvenio(c.objeto, c.inicioVigencia, c.fimVigencia, c.proponente.municipio, c.proponente.uf, c.proponente.nomeProponente, c.valor.valorGlobal) from Convenio as c")
+@NamedQuery(name = Convenio.POR_NUMERO, query = "select c from Convenio c where c.numeroConvenio = :numeroConvenio")
 public class Convenio implements Serializable {
 
-    public static final String TODOS = "Convenio.TODOS";
+    public static final String POR_NUMERO = "Convenio.POR_NUMERO";
     
     @Id @GeneratedValue
     private Long id;
