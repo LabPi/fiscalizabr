@@ -22,19 +22,10 @@ public class ConvenioBean {
 
     @PostConstruct
     public void init() {
-        boolean isOk = false;
         if (nConv != null) {
             convenio = cDAO.porNumero(nConv);
-            if (convenio != null) {
-                isOk = true;
-            }
         } else {
             convenio = null;
-        }
-        if (!isOk) {
-            adicionarMensagem(FacesMessage.SEVERITY_ERROR,
-                    "Não foi possível recuperar o convênio com o número informado!",
-                    null);
         }
     }
 

@@ -23,244 +23,308 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">FiscalizaBR</a>
+                    <a class="navbar-brand" href="#INICIO">FiscalizaBR</a>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
+                        <li><a href="#INICIO">Início</a></li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dados <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#CONVENIO">Convênio</a></li>
                                 <li><a href="#CONCEDENTE_SUPERIOR">Órgão Concedente/Superior</a></li>
-                                <li><a href="#PROPONENTE">Proponente</a></li>
-                                <li><a href="#PROPOSTA">Proposta</a></li>
+                                <li><a href="#PROPONENTE_PROPOSTA">Proponente/Proposta</a></li>
                                 <li><a href="#VALORES">Valores</a></li>
                             </ul>
                         </li>
-                        <li><a href="#about">Sobre</a></li>
-
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        <!-- Begin page content -->
-        <div class="container">
-            <div class="jumbotron">
-                <h2><h:outputText value="#{cBean.convenio.objeto}"/></h2>
-                <p class="lead">                    
-                    <span class="glyphicon glyphicon-calendar"/>
-                    <h:outputText value="#{cBean.convenio.inicioVigencia}">
-                        <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
-                    </h:outputText>
-                    à
-                    <h:outputText value="#{cBean.convenio.fimVigencia}">
-                        <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
-                    </h:outputText>
+        <a name="INICIO"/>
+        <h:panelGroup rendered="#{cBean.convenio == null}">
+            <div class="container">
+                <div class="alert alert-danger" role="alert">
+                    <h2 align="center">
+                        <b>Ops, algo deu errado:</b> não foi possível encontrar o convênio com o número informado!
+                    </h2>
+                </div>
 
-                    <span class="glyphicon glyphicon-map-marker"/>
-                    <h:outputText value="#{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf}"/>
-                    <span class="glyphicon glyphicon-usd"/>
-                    <h:outputText value="#{cBean.convenio.valor.valorGlobal} reais"/>                    
-                </p>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{cBean.convenio != null}">
+            <div class="container">
+                <div class="jumbotron">
+                    <h2 align="center"><h:outputText value="#{cBean.convenio.objeto}"/></h2>
+                    <br/>
+                    <p class="lead" align="center">                    
+                        <span class="glyphicon glyphicon-calendar"/>
+                        #{' '}
+                        <h:outputText value="#{cBean.convenio.inicioVigencia}">
+                            <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
+                        </h:outputText>
+                        à
+                        <h:outputText value="#{cBean.convenio.fimVigencia}">
+                            <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
+                        </h:outputText>
 
-                <a class="btn btn-lg btn-success" href="#" role="button">
-                    <span class="glyphicon glyphicon-phone"/>
-                    Baixar Aplicativo
-
-                </a>
-            </div>
-            <div class="page-header">
-                <a name="CONVENIO"/><h3>Dados Convênio</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Data assinatura/publicação:</b><br/>
-                    <h:outputText value="#{cBean.convenio.dataAssinatura}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
-                    </h:outputText>
-                    #{' - '}
-                    <h:outputText value="#{cBean.convenio.dataPublicacao}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>                        
-                    </h:outputText>
-                </div>
-                <div class="col-md-6">
-                    <b>Data início/fim da vigência:</b><br/>
-                    <h:outputText value="#{cBean.convenio.inicioVigencia}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
-                    </h:outputText>
-                    #{' - '}
-                    <h:outputText value="#{cBean.convenio.fimVigencia}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>                        
-                    </h:outputText>
-                </div>        
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Justificativa:</b><br/>
-                    #{cBean.convenio.justificativa}"   
-                </div>
-                <div class="col-md-6">
-                    <b>Modalidade:</b><br/>
-                    #{cBean.convenio.modalidade.descricao}   
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Nome do programa:</b><br/>
-                    #{cBean.convenio.nomePrograma}"   
-                </div>
-                <div class="col-md-6">
-                    <b>Número do convênio</b><br/>
-                    #{cBean.convenio.numeroConvenio}   
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Número do processo:</b><br/>
-                    #{cBean.convenio.numeroProcesso}
-                </div>
-                <div class="col-md-6">
-                    <b>Objeto:</b><br/>
-                    #{cBean.convenio.objeto}   
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Quantidade de aditivos/empenhos/prorrogas:</b><br/>
-                    #{cBean.convenio.quantidadeAditivos}/#{cBean.convenio.quantidadeEmpenhos}/#{cBean.convenio.quantidadeProrrogas}
-                </div>
-                <div class="col-md-6">
-                    <b>Situação/Subsituação</b><br/>
-                    #{cBean.convenio.situacaoConvenio.descricao}/#{cBean.convenio.subsituacaoConvenio.descricao}    
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Data último empenho:</b><br/>
-                    <h:outputText value="#{cBean.convenio.ultimoEmpenho}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
-                    </h:outputText>                    
-                </div> 
-                <div class="col-md-6">
-                    <b>Data último pagamento</b><br/>
-                    <h:outputText value="#{cBean.convenio.ultimoPagamento}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
-                    </h:outputText>                    
-                </div> 
-            </div>
-            <div class="page-header">
-                <a name="CONCEDENTE_SUPERIOR"/><h3>Dados do Órgão Concedente/Superior</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Nome do órgão concedente:</b><br/>
-                    #{cBean.convenio.orgaoConcedente.nomeOrgaoConcedente}                   
-                </div> 
-                <div class="col-md-6">
-                    <b>Nome do órgão superior:</b><br/>
-                    #{cBean.convenio.orgaoSuperior.nomeOrgaoSuperior}                   
-                </div>
-            </div>
-            <br/>
-            <div class="row">      
-                <div class="col-md-6">
-                    <b>Nome do responsável pelo concedente:</b><br/>
-                    #{cBean.convenio.orgaoConcedente.nomeResponsavelConcedente}                   
-                </div>
-                <div class="col-md-6">
-                    <b>Cargo do responsável pelo concedente:</b><br/>
-                    #{cBean.convenio.orgaoConcedente.cargoResponsavelConcedente}                   
-                </div> 
-            </div>
-            <div class="page-header">
-                <a name="PROPONENTE"/><h3>Dados do Proponente</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Nome do proponente:</b><br/>
-                    #{cBean.convenio.proponente.nomeProponente}                   
-                </div> 
-                <div class="col-md-6">
-                    <b>Nome do responsável pelo proponente:</b><br/>
-                    #{cBean.convenio.proponente.nomeResponsavelProponente}                   
-                </div>
-            </div>
-            <br/>  
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Cargo do responsável pelo proponente:</b><br/>
-                    #{cBean.convenio.proponente.cargoResponsavelProponente}                   
-                </div> 
-                <div class="col-md-6">
-                    <b>Endereço/bairro do responsável pelo proponente:</b><br/>
-                    #{cBean.convenio.proponente.enderecoProponente}, #{cBean.convenio.proponente.bairroProponente}                 
-                </div>
-            </div>
-            <br/> 
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Município/UF - Região do proponente:</b><br/>
-                    #{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf} - #{cBean.convenio.proponente.regiao.descricao}               
-                </div> 
-                <div class="col-md-6">
-                    <b>CEP do proponente:</b><br/>
-                    #{cBean.convenio.proponente.cepProponente}                   
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Qualificação do proponente:</b><br/>
-                    #{cBean.convenio.proponente.qualificacao.descricao}               
-                </div> 
-                <div class="col-md-6">
-                    <b>Esfera administrativa do proponente:</b><br/>
-                    #{cBean.convenio.proponente.esferaAdministrativa.descricao}                   
-                </div>
-            </div>
-            <br/>  
-            <div class="page-header">
-                <a name="PROPOSTA"/><h3>Dados da Proposta</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Número:</b><br/>
-                    #{cBean.convenio.proposta.numeroProposta}                   
-                </div> 
-                <div class="col-md-6">
-                    <b>Data inclusão:</b><br/>
-                    <h:outputText value="#{cBean.convenio.proposta.dataInclusaoProposta}">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
-                    </h:outputText>                   
-                </div>
-            </div>
-            <div class="page-header">
-                <a name="VALORES"/><h3>Valores</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <b>Valor global:</b><br/>
-                    <h:outputText value="#{cBean.convenio.valor.valorGlobal}">
-                        <f:convertNumber locale="pt_BR" currencySymbol="R$" />
-                    </h:outputText>                       
-                </div> 
-                <div class="col-md-6">
-                    <b>Valor empenhado:</b><br/>
-                    <h:outputText value="#{cBean.convenio.valor.valorEmpenhado}">
-                        <f:convertNumber locale="pt_BR" currencySymbol="R$" />
-                    </h:outputText>                   
-                </div>
-            </div>
+                        <span class="glyphicon glyphicon-map-marker"/>
+                        #{' '}
+                        <h:outputText value="#{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf}"/>
+                        <span class="glyphicon glyphicon-usd"/>
+                        #{' '}
+                        <h:outputText value="#{cBean.convenio.valor.valorGlobal}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="" type="currency"/>
+                        </h:outputText>                    
 
 
-        </div>
+                    </p>
+
+                    <p align="center"> 
+                        <a class="btn btn-lg btn-success" href="#" role="button">
+                            <span class="glyphicon glyphicon-phone"/>
+                            Baixar App para Android
+                        </a>
+                        #{' '}
+                        <a class="btn btn-lg btn-primary" href="#" role="button">
+                            <span class="glyphicon glyphicon-phone"/>
+                            Baixar App para iOS
+                        </a>
+                    </p>
 
 
+                </div>
+
+                <div class="page-header">
+                    <a name="CONVENIO"/><h3>Dados Convênio</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Data assinatura/publicação:</b><br/>
+                        <h:outputText value="#{cBean.convenio.dataAssinatura}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        #{' - '}
+                        <h:outputText value="#{cBean.convenio.dataPublicacao}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>                        
+                        </h:outputText>
+                    </div>
+                    <div class="col-md-6">
+                        <b>Data início/fim da vigência:</b><br/>
+                        <h:outputText value="#{cBean.convenio.inicioVigencia}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        #{' - '}
+                        <h:outputText value="#{cBean.convenio.fimVigencia}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>                        
+                        </h:outputText>
+                    </div>        
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Justificativa:</b><br/>
+                        #{cBean.convenio.justificativa}"   
+                    </div>
+                    <div class="col-md-6">
+                        <b>Modalidade:</b><br/>
+                        #{cBean.convenio.modalidade.descricao}   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Nome do programa:</b><br/>
+                        #{cBean.convenio.nomePrograma}"   
+                    </div>
+                    <div class="col-md-6">
+                        <b>Número do convênio</b><br/>
+                        #{cBean.convenio.numeroConvenio}   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Número do processo:</b><br/>
+                        #{cBean.convenio.numeroProcesso}
+                    </div>
+                    <div class="col-md-6">
+                        <b>Objeto:</b><br/>
+                        #{cBean.convenio.objeto}   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Quantidade de aditivos/empenhos/prorrogas:</b><br/>
+                        #{cBean.convenio.quantidadeAditivos}/#{cBean.convenio.quantidadeEmpenhos}/#{cBean.convenio.quantidadeProrrogas}
+                    </div>
+                    <div class="col-md-6">
+                        <b>Situação/Subsituação</b><br/>
+                        #{cBean.convenio.situacaoConvenio.descricao}/#{cBean.convenio.subsituacaoConvenio.descricao}    
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Data último empenho:</b><br/>
+                        <h:outputText value="#{cBean.convenio.ultimoEmpenho}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </h:outputText>                    
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Data último pagamento</b><br/>
+                        <h:outputText value="#{cBean.convenio.ultimoPagamento}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </h:outputText>                    
+                    </div> 
+                </div>
+
+                <div class="page-header">
+                    <a name="CONCEDENTE_SUPERIOR"/><h3>Dados do Órgão Concedente/Superior</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Nome do órgão concedente:</b><br/>
+                        #{cBean.convenio.orgaoConcedente.nomeOrgaoConcedente}                   
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Nome do órgão superior:</b><br/>
+                        #{cBean.convenio.orgaoSuperior.nomeOrgaoSuperior}                   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">      
+                    <div class="col-md-6">
+                        <b>Nome do responsável pelo concedente:</b><br/>
+                        #{cBean.convenio.orgaoConcedente.nomeResponsavelConcedente}                   
+                    </div>
+                    <div class="col-md-6">
+                        <b>Cargo do responsável pelo concedente:</b><br/>
+                        #{cBean.convenio.orgaoConcedente.cargoResponsavelConcedente}                   
+                    </div> 
+                </div>
+
+                <div class="page-header">
+                    <a name="PROPONENTE_PROPOSTA"/><h3>Dados do Proponente/Proposta</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Nome do proponente:</b><br/>
+                        #{cBean.convenio.proponente.nomeProponente}                   
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Nome do responsável pelo proponente:</b><br/>
+                        #{cBean.convenio.proponente.nomeResponsavelProponente}                   
+                    </div>
+                </div>
+                <br/>  
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Cargo do responsável pelo proponente:</b><br/>
+                        #{cBean.convenio.proponente.cargoResponsavelProponente}                   
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Endereço/bairro do responsável pelo proponente:</b><br/>
+                        #{cBean.convenio.proponente.enderecoProponente}, #{cBean.convenio.proponente.bairroProponente}                 
+                    </div>
+                </div>
+                <br/> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Município/UF - Região do proponente:</b><br/>
+                        #{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf} - #{cBean.convenio.proponente.regiao.descricao}               
+                    </div> 
+                    <div class="col-md-6">
+                        <b>CEP do proponente:</b><br/>
+                        #{cBean.convenio.proponente.cepProponente}                   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Qualificação do proponente:</b><br/>
+                        #{cBean.convenio.proponente.qualificacao.descricao}               
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Esfera administrativa do proponente:</b><br/>
+                        #{cBean.convenio.proponente.esferaAdministrativa.descricao}                   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Número da proposta:</b><br/>
+                        #{cBean.convenio.proposta.numeroProposta}                   
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Data inclusão da proposta:</b><br/>
+                        <h:outputText value="#{cBean.convenio.proposta.dataInclusaoProposta}">
+                            <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"/>
+                        </h:outputText>                   
+                    </div>
+                </div>
+
+                <div class="page-header">
+                    <a name="VALORES"/><h3>Valores</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Valor global:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorGlobal}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                       
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Valor empenhado:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorEmpenhado}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Valor desembolsado:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorDesembolsado}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                       
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Repasse da união:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorRepasseUniao}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Contrapartida financeira:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorContrapartidaFinanceira}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                       
+                    </div> 
+                    <div class="col-md-6">
+                        <b>Contrapartida financeira de bens e serviços:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorContrapartidaFinanceiraBensEServicos}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                       
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Contrapartida total:</b><br/>
+                        <h:outputText value="#{cBean.convenio.valor.valorTotalContrapartida}">
+                            <f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+                        </h:outputText>                       
+                    </div>
+                </div>
+
+            </div>
+        </h:panelGroup>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
