@@ -18,7 +18,7 @@ public enum EsferaAdministrativa implements Serializable {
         this.descricao = desc;
     }
 
-    private String descricao() {
+    public String getDescricao() {
         return this.descricao;
     }
 }

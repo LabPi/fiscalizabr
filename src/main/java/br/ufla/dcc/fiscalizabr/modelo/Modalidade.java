@@ -15,7 +15,7 @@ public enum Modalidade implements Serializable {
         this.descricao = desc;
     }
 
-    private String descricao() {
+    public String getDescricao() {
         return this.descricao;
     }
 }
