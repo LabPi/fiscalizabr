@@ -117,15 +117,15 @@ public class Convenio implements Serializable {
     private int identificacaoPropostaPrograma;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_INICIO_VIGENCIA")
+    @Column(name = "DT_INICIO_VIGENCIA", nullable = true)
     private Date inicioVigencia;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_FIM_VIGENCIA")
+    @Column(name = "DT_FIM_VIGENCIA", nullable = true)
     private Date fimVigencia;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_ASSINATURA_CONVENIO")
+    @Column(name = "DT_ASSINATURA_CONVENIO", nullable = true)
     private Date dataAssinatura;
     
     @Column(name = "MES_ASSINATURA_CONVENIO")
@@ -135,7 +135,7 @@ public class Convenio implements Serializable {
     private int anoAssinatura;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_PUBLICACAO")
+    @Column(name = "DT_PUBLICACAO", nullable = true)
     private Date dataPublicacao;
     
     @Column(name = "MES_PUBLICACAO_CONVENIO")
@@ -145,11 +145,11 @@ public class Convenio implements Serializable {
     private int anoPublicacao;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_ULTIMO_EMPENHO")
+    @Column(name = "DT_ULTIMO_EMPENHO", nullable = true)
     private Date ultimoEmpenho;
     
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_ULTIMO_PGTO")
+    @Column(name = "DT_ULTIMO_PGTO", nullable = true)
     private Date ultimoPagamento;
 
     public Long getId() {

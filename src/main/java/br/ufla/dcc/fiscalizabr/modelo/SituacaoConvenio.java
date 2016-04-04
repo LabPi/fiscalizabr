@@ -14,7 +14,7 @@ public enum SituacaoConvenio implements Serializable {
     PLANO_TRABALHO_COMPLEMENTADO_EM_ANALISE("Proposta Aprovada e Plano de Trabalho Complementado enviado para Análise"),
     PLANO_TRABALHO_EM_COMPLEMENTACAO("Proposta Aprovada e Plano de Trabalho em Complementação"),
     PROPOSTA_EM_ANALISE("Proposta em Análise"),
-    PLANO_TRABALHO_EM_ANALISE("Plano de Trabalho em Análise");
+    PLANO_TRABALHO_EM_ANALISE("Plano de Trabalho em Análise");    
 
     private final String descricao;
 
