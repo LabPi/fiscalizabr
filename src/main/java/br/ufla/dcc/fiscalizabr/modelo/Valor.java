@@ -7,27 +7,39 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Valor implements Serializable {
-    
+
     @Column(name = "VL_GLOBAL")
     private BigDecimal valorGlobal;
-    
+
     @Column(name = "VL_REPASSE")
     private BigDecimal valorRepasseUniao;
-    
+
     @Column(name = "VL_CONTRAPARTIDA_TOTAL")
     private BigDecimal valorTotalContrapartida;
-    
+
     @Column(name = "VL_CONTRAPARTIDA_FINANC")
     private BigDecimal valorContrapartidaFinanceira;
-    
+
     @Column(name = "VL_CONTRAPARTIDA_BENS_SERV")
     private BigDecimal valorContrapartidaFinanceiraBensEServicos;
-    
+
     @Column(name = "VL_DESEMBOLSADO")
     private BigDecimal valorDesembolsado;
-    
+
     @Column(name = "VL_EMPENHADO")
     private BigDecimal valorEmpenhado;
+
+    public String getValorGlobalStr() {
+        if (valorGlobal.compareTo(new BigDecimal(1000)) < 0) {
+            return valorGlobal + ",00";
+        } else if (valorGlobal.compareTo(new BigDecimal(1000000)) < 0) {
+            BigDecimal valorMilhares = valorGlobal.divide(new BigDecimal(1000));
+            return valorMilhares + " mil";
+        } else {
+            BigDecimal valorMilhares = valorGlobal.divide(new BigDecimal(1000000));
+            return valorMilhares + " mi";
+        }
+    }
 
     public BigDecimal getValorGlobal() {
         return valorGlobal;
@@ -83,5 +95,5 @@ public class Valor implements Serializable {
 
     public void setValorEmpenhado(BigDecimal valorEmpenhado) {
         this.valorEmpenhado = valorEmpenhado;
-    }    
+    }
 }

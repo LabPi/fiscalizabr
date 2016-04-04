@@ -200,6 +200,20 @@ public class Convenio implements Serializable {
         this.modalidade = modalidade;
     }
 
+    public boolean isSituacaoOk() {
+        return situacaoConvenio.PRESTACAO_CONTAS_APROVADA == situacaoConvenio;
+    }
+    
+    public boolean isSituacaoProblema() {
+        return situacaoConvenio.PRESTACAO_CONTAS_REJEITADA == situacaoConvenio;
+    }
+    
+    public boolean isSituacaoAberta() {
+        return (situacaoConvenio.PRESTACAO_CONTAS_APROVADA != situacaoConvenio &&
+                situacaoConvenio.PRESTACAO_CONTAS_REJEITADA != situacaoConvenio);
+    
+    }
+    
     public SituacaoConvenio getSituacaoConvenio() {
         return situacaoConvenio;
     }

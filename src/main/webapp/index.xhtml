@@ -58,10 +58,10 @@
         <h:panelGroup rendered="#{cBean.convenio != null}">
             <div class="container">
                 <div class="jumbotron">
-                    <h2 align="center">
+                    <h2 align="center">                        
                         <h:outputText value="#{cBean.convenio.objeto}"/></h2>
                     <br/>
-                    <p class="lead" align="center">                    
+                    <p class="lead" align="center">        
                         <span class="glyphicon glyphicon-calendar"/>
                         #{' '}
                         <h:outputText value="#{cBean.convenio.inicioVigencia}">
@@ -77,9 +77,15 @@
                         <h:outputText value="#{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf}"/>
                         <span class="glyphicon glyphicon-usd"/>
                         #{' '}
-                        <h:outputText value="#{cBean.convenio.valor.valorGlobal}">
+                        <h:outputText value="#{cBean.convenio.valor.valorGlobalStr}">
                             <f:convertNumber locale="pt_BR" currencySymbol="" type="currency"/>
-                        </h:outputText>                 
+                        </h:outputText>
+                        <br/>
+                        <h:graphicImage width="24px" height="24px" value="/resources/img/sitAberta.png" rendered="#{cBean.convenio.situacaoAberta}"/>
+                        <h:graphicImage width="24px" height="24px" value="/resources/img/sitProblema.png" rendered="#{cBean.convenio.situacaoProblema}"/>
+                        <h:graphicImage width="24px" height="24px" value="/resources/img/sitOk.png" rendered="#{cBean.convenio.situacaoOk}"/>
+
+
                     </p>
                     <p align="center"> 
                         <a class="btn btn-lg btn-success" href="#" role="button">
