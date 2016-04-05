@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       lang="pt_BR">
     <h:head>
         <title>FiscalizaBR</title>
@@ -58,41 +59,52 @@
         <h:panelGroup rendered="#{cBean.convenio != null}">
             <div class="container">
                 <div class="jumbotron">
-                    <h2 align="center">                        
-                        <h:outputText value="#{cBean.convenio.objeto}"/></h2>
-                    <br/>
-                    <p class="lead" align="center">        
-                        <span class="glyphicon glyphicon-calendar"/>
-                        #{' '}
-                        <h:outputText value="#{cBean.convenio.inicioVigencia}">
-                            <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
-                        </h:outputText>
-                        à
-                        <h:outputText value="#{cBean.convenio.fimVigencia}">
-                            <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
-                        </h:outputText>
+                    <div class="row">
+                        <div class="col-md-2" align="center">
+                            <p:barcode value="http://fiscalizabr-dccufla.rhcloud.com/convenios/#{cBean.convenio.numeroConvenio}" type="qr" format="png" />
+                            <br/>
+                            <div data-toggle="tooltip" data-placement="left" title="Convênio em andamento">
+                                <h:graphicImage width="24px" height="24px" value="/resources/img/sitAberta.png" rendered="#{cBean.convenio.situacaoAberta}"/>
+                            </div>
+                            <div data-toggle="tooltip" data-placement="left" title="Convênio encerrado com problemas">
+                                <h:graphicImage width="24px" height="24px" value="/resources/img/sitProblema.png" rendered="#{cBean.convenio.situacaoProblema}"/>
+                            </div>
+                            <div data-toggle="tooltip" data-placement="left" title="Convênio encerrado com sucesso">
+                                <h:graphicImage width="24px" height="24px" value="/resources/img/sitOk.png" rendered="#{cBean.convenio.situacaoOk}"/>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <h2 align="center">                        
+                                <h:outputText value="#{cBean.convenio.objeto}"/></h2>
+                            <br/>
+                            <p class="lead" align="center">        
+                                <span class="glyphicon glyphicon-calendar"/>
+                                #{' '}
+                                <h:outputText value="#{cBean.convenio.inicioVigencia}">
+                                    <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
+                                </h:outputText>
+                                à
+                                <h:outputText value="#{cBean.convenio.fimVigencia}">
+                                    <f:convertDateTime locale="pt_BR" pattern="MM/yyyy"/>
+                                </h:outputText>
 
-                        <span class="glyphicon glyphicon-map-marker"/>
-                        #{' '}
-                        <h:outputText value="#{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf}"/>
-                        <span class="glyphicon glyphicon-usd"/>
-                        #{' '}
-                        <h:outputText value="#{cBean.convenio.valor.valorGlobalStr}">
-                            <f:convertNumber locale="pt_BR" currencySymbol="" type="currency"/>
-                        </h:outputText>
-                        <br/>
-                        <h:graphicImage width="24px" height="24px" value="/resources/img/sitAberta.png" rendered="#{cBean.convenio.situacaoAberta}"/>
-                        <h:graphicImage width="24px" height="24px" value="/resources/img/sitProblema.png" rendered="#{cBean.convenio.situacaoProblema}"/>
-                        <h:graphicImage width="24px" height="24px" value="/resources/img/sitOk.png" rendered="#{cBean.convenio.situacaoOk}"/>
-
-
-                    </p>
-                    <p align="center"> 
-                        <a class="btn btn-lg btn-success" href="#" role="button">
-                            <span class="glyphicon glyphicon-phone"/>
-                            Baixar Aplicativo
-                        </a>                        
-                    </p>
+                                <span class="glyphicon glyphicon-map-marker"/>
+                                #{' '}
+                                <h:outputText value="#{cBean.convenio.proponente.municipio}/#{cBean.convenio.proponente.uf}"/>
+                                <span class="glyphicon glyphicon-usd"/>
+                                #{' '}
+                                <h:outputText value="#{cBean.convenio.valor.valorGlobalStr}">
+                                    <f:convertNumber locale="pt_BR" currencySymbol="" type="currency"/>
+                                </h:outputText>
+                            </p>
+                            <p align="center"> 
+                                <a class="btn btn-lg btn-success" href="#" role="button">
+                                    <span class="glyphicon glyphicon-phone"/>
+                                    Baixar Aplicativo
+                                </a>                        
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="page-header">
@@ -125,7 +137,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <b>Justificativa:</b><br/>
-                        #{cBean.convenio.justificativa}"   
+                        #{cBean.convenio.justificativa}
                     </div>
                     <div class="col-md-6">
                         <b>Modalidade:</b><br/>
@@ -136,7 +148,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <b>Nome do programa:</b><br/>
-                        #{cBean.convenio.nomePrograma}"   
+                        #{cBean.convenio.nomePrograma}
                     </div>
                     <div class="col-md-6">
                         <b>Número do convênio</b><br/>
