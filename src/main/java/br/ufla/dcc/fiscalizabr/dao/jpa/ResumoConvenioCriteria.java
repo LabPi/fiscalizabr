@@ -8,12 +8,15 @@ import br.ufla.dcc.fiscalizabr.modelo.UF;
 import br.ufla.dcc.fiscalizabr.modelo.Valor;
 import br.ufla.dcc.fiscalizabr.rest.ConvenioResource;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 public class ResumoConvenioCriteria {
@@ -22,10 +25,12 @@ public class ResumoConvenioCriteria {
     private final CriteriaQuery<ResumoConvenio> criteriaQuery;
     private final Root<Convenio> root;
     private final HashMap<String, String> mapaFiltro;
+    private final List<Predicate> predList;
 
     public ResumoConvenioCriteria(HashMap<String, String> mf) {
         EntityManager entityManager = JPAUtil.getEMF().createEntityManager();
         cb = entityManager.getCriteriaBuilder();
+        predList = new ArrayList<Predicate>();
         mapaFiltro = mf;
         criteriaQuery = cb.createQuery(ResumoConvenio.class);
         root = criteriaQuery.from(Convenio.class);
@@ -46,7 +51,8 @@ public class ResumoConvenioCriteria {
             double maxValorD = Double.parseDouble(maxValorS);
             Path<Valor> pathValor = root.get("valor");
             Path pathVg = pathValor.get("valorGlobal");
-            criteriaQuery.where(cb.and(cb.ge(pathVg, minValorD), cb.le(pathVg, maxValorD)));
+            predList.add(cb.ge(pathVg, minValorD));
+            predList.add(cb.le(pathVg, maxValorD));
         }
         return this;
     }
@@ -61,13 +67,13 @@ public class ResumoConvenioCriteria {
                 Date fimPeriodoD = df.parse(fimPeriodoS);
 
                 Path<Date> pathDataAssinatura = root.get("dataAssinatura");
-                criteriaQuery.where(cb.and(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD)));
+                predList.add(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD));
+
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return this;
             }
         }
-
         return this;
     }
 
@@ -75,8 +81,8 @@ public class ResumoConvenioCriteria {
         String situacao = mapaFiltro.get(ConvenioResource.SITUACAO_QUERY_PARAM_NAME);
         if (!situacao.isEmpty()) {
             Path<SituacaoConvenio> pathSituacao = root.get("situacaoConvenio");
-            criteriaQuery.where(cb.and(cb.equal(pathSituacao, SituacaoConvenio.valueOf(situacao))));
-        }        
+            predList.add(cb.equal(pathSituacao, SituacaoConvenio.valueOf(situacao)));
+        }
         return this;
     }
 
@@ -87,13 +93,15 @@ public class ResumoConvenioCriteria {
             Path<Proponente> pathProp = root.get("proponente");
             Path<String> pathMun = pathProp.get("municipio");
             Path<UF> pathUf = pathProp.get("uf");
-            criteriaQuery.where(cb.and(cb.equal(pathMun, municipio),
-                    cb.equal(pathUf, UF.valueOf(uf))));
+            predList.add(cb.equal(pathMun, municipio));
+            predList.add(cb.equal(pathUf, UF.valueOf(uf)));
         }
         return this;
     }
 
     public CriteriaQuery<ResumoConvenio> getCriteriaQuery() {
+        Predicate[] predArray = new Predicate[predList.size()];
+        criteriaQuery.where(predArray);
         return criteriaQuery;
     }
 

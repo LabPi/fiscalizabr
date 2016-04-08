@@ -18,8 +18,8 @@ public class JPAConvenioDAO implements ConvenioDAO, Serializable {
         EntityManager em = JPAUtil.getEMF().createEntityManager();
         try {
             ResumoConvenioCriteria rcc
-                    = new ResumoConvenioCriteria(mapaFiltro).
-                    comLocalidade().comFaixaValores().
+                    = new ResumoConvenioCriteria(mapaFiltro);
+            rcc.comLocalidade().comFaixaValores().
                     comIntervaloData().comSituacao();
             TypedQuery<ResumoConvenio> tp = em.createQuery(rcc.getCriteriaQuery());          
             convenios = tp.getResultList();
