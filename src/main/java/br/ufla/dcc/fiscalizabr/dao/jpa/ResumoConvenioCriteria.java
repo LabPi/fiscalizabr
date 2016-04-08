@@ -46,7 +46,7 @@ public class ResumoConvenioCriteria {
             double maxValorD = Double.parseDouble(maxValorS);
             Path<Valor> pathValor = root.get("valor");
             Path pathVg = pathValor.get("valorGlobal");
-            criteriaQuery.where(cb.ge(pathVg, minValorD), cb.le(pathVg, maxValorD));
+            criteriaQuery.where(cb.and(cb.ge(pathVg, minValorD), cb.le(pathVg, maxValorD)));
         }
         return this;
     }
@@ -54,11 +54,6 @@ public class ResumoConvenioCriteria {
     public ResumoConvenioCriteria comIntervaloData() {
         String inicioPeriodoS = mapaFiltro.get(ConvenioResource.INIPERIODO_QUERY_PARAM_NAME);
         String fimPeriodoS = mapaFiltro.get(ConvenioResource.FIMPERIODO_QUERY_PARAM_NAME);
-//        if (inicioPeriodoS.isEmpty() || fimPeriodoS.isEmpty()) {
-//            inicioPeriodoS = "01/01/" + Calendar.getInstance().get(Calendar.YEAR);
-//            fimPeriodoS = "31/12/" + Calendar.getInstance().get(Calendar.YEAR);
-//        }
-
         if (!inicioPeriodoS.isEmpty() && !fimPeriodoS.isEmpty()) {
             try {
                 SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -66,7 +61,7 @@ public class ResumoConvenioCriteria {
                 Date fimPeriodoD = df.parse(fimPeriodoS);
 
                 Path<Date> pathDataAssinatura = root.get("dataAssinatura");
-                criteriaQuery.where(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD));
+                criteriaQuery.where(cb.and(cb.between(pathDataAssinatura, inicioPeriodoD, fimPeriodoD)));
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return this;
@@ -80,8 +75,8 @@ public class ResumoConvenioCriteria {
         String situacao = mapaFiltro.get(ConvenioResource.SITUACAO_QUERY_PARAM_NAME);
         if (!situacao.isEmpty()) {
             Path<SituacaoConvenio> pathSituacao = root.get("situacaoConvenio");
-            criteriaQuery.where(cb.equal(pathSituacao, SituacaoConvenio.valueOf(situacao)));
-        }
+            criteriaQuery.where(cb.and(cb.equal(pathSituacao, SituacaoConvenio.valueOf(situacao))));
+        }        
         return this;
     }
 
@@ -92,8 +87,8 @@ public class ResumoConvenioCriteria {
             Path<Proponente> pathProp = root.get("proponente");
             Path<String> pathMun = pathProp.get("municipio");
             Path<UF> pathUf = pathProp.get("uf");
-            criteriaQuery.where(cb.equal(pathMun, municipio),
-                    cb.equal(pathUf, UF.valueOf(uf)));
+            criteriaQuery.where(cb.and(cb.equal(pathMun, municipio),
+                    cb.equal(pathUf, UF.valueOf(uf))));
         }
         return this;
     }

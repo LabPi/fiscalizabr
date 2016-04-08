@@ -41,7 +41,7 @@ public class ConvenioResource {
             @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(MAXVALOR_QUERY_PARAM_NAME) String maxValor,
             @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(INIPERIODO_QUERY_PARAM_NAME) String inicioPeriodo,
             @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(FIMPERIODO_QUERY_PARAM_NAME) String fimPeriodo,
-            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(SITUACAO_QUERY_PARAM_NAME) String status
+            @DefaultValue(STR_DEFAULT_QUERY_PARAM_VALOR) @QueryParam(SITUACAO_QUERY_PARAM_NAME) String situacao
     ) {
         HashMap<String, String> mapaFiltro = new HashMap<String, String>();
         mapaFiltro.put(MUNICIPIO_QUERY_PARAM_NAME, municipio);
@@ -50,7 +50,7 @@ public class ConvenioResource {
         mapaFiltro.put(MAXVALOR_QUERY_PARAM_NAME, maxValor);
         mapaFiltro.put(INIPERIODO_QUERY_PARAM_NAME, inicioPeriodo);
         mapaFiltro.put(FIMPERIODO_QUERY_PARAM_NAME, fimPeriodo);
-        mapaFiltro.put(SITUACAO_QUERY_PARAM_NAME, status);
+        mapaFiltro.put(SITUACAO_QUERY_PARAM_NAME, situacao);
         return cDAO.todos(mapaFiltro);
     }
 
