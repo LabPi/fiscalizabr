@@ -101,6 +101,7 @@ public class ResumoConvenioCriteria {
 
     public CriteriaQuery<ResumoConvenio> getCriteriaQuery() {
         Predicate[] predArray = new Predicate[predList.size()];
+        predList.toArray(predArray);
         criteriaQuery.where(predArray);
         return criteriaQuery;
     }
