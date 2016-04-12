@@ -27,8 +27,8 @@ public class ConvenioResource {
     public static final String FIMPERIODO_QUERY_PARAM_NAME = "fimPer";
     public static final String SITUACAO_QUERY_PARAM_NAME = "sit";
     public static final String STR_DEFAULT_QUERY_PARAM_VALOR = "";
-    public static final String MUNICIPIO_DEFAULT_QUERY_PARAM_VALOR = "BRASILIA";
-    public static final String UF_DEFAULT_QUERY_PARAM_VALOR = "DF";
+    public static final String MUNICIPIO_DEFAULT_QUERY_PARAM_VALOR = "";
+    public static final String UF_DEFAULT_QUERY_PARAM_VALOR = "";
     
     private static final ConvenioDAO cDAO = new JPAConvenioDAO();
 
